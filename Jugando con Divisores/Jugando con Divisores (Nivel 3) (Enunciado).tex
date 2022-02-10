@@ -1,0 +1,191 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional Nivel 3}
+\def\nombre{Jugando con Divisores}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{divisores}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Gastón y Agustín están jugando un juego con divisores.
+
+Al comenzar el juego, eligen un número $N$. 
+
+Juegan por turnos, alternandose. En cada turno, si en ese momento están en el número $x$, el jugador que tiene el turno elige un entero positivo $y$ tal que $y$ divide a $x$ y $x$ dividido $y$ da un número primo.
+
+Antes de iniciar el juego, además, Agustín y Gastón eligieron un número $M$, y a cada entero positivo $x$ le asignan un puntaje $ p_x = ((x^2)\%M)^2 $ (donde el  \% es la operación resto, es decir, a\%b es tomar el resto de la división entera entre a y b)
+
+Llamemos $S$ a la suma de los puntajes asociados a los números por los que pasarón durante el juego (incluyendo el $N$ y el 1), el objetivo de Agustín es minimizar $S$, y el de Gastón es maximizarlo.
+
+Ahora, lo que quieren es que desarrolles un programa que, dados $N$ y $M$, les indique cuanto valdrá $S$ en los casos donde Agustín o Gastón jueguen primero, asumiendo que ambos juegan siempre de forma optima segun sus objetivos.
+
+\section{Detalles de implementación}
+Debes implementar la función \texttt{Divisores(N,M)}, siendo $N$ y $M$ dos \texttt{ENTERO LARGO}. La función debe devolver un \texttt{VECTOR DE ENTERO LARGO} con 2 valores, el primero el valor de $S$ si Agustín juega el primer turno, y el segundo el valor de $S$ si Gastón juega el primer turno.
+
+\section{Evaluador local}
+El evaluador local leera primero 2 enteros, $N$ y $M$.
+
+Luego llama a la función \texttt{Divisores(N,M)} y devuelve en una línea el contenido del vector devuelto por la función.
+
+\section{Cotas}
+  \begin{itemize}
+     \item $ 1 \leq N \leq 10^{14}$
+     \item $ 1 \leq M \leq 10^7$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+10 1
+}
+
+Una  implementación  correcta  devolvera:
+
+\caja{5.7cm}{\small
+0 0
+}
+
+En cambio, si recibe:
+
+\caja{5.7cm}{\small
+100 10
+}
+
+
+Podrá devolver:
+
+\caja{5.7cm}{\small
+51 26
+}
+
+Notar que a veces a los jugadores les conviene jugar segundos.
+\section{Subtareas}
+
+\begin{enumerate}
+  \item $1 \leq N \leq 10$ (10 puntos)
+  \item $1 \leq N \leq 1.000$ (15 puntos)
+  \item $1 \leq N \leq 1.000.000$ (15 puntos)
+  \item $1 \leq N \leq 10^{10}$ (20 puntos)
+  \item Sin restricciones adicionales (40 puntos) 
+\end{enumerate}
+
+\end{multicols*}
+\end{document}

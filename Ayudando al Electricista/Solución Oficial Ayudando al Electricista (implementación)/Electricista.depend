@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1566527106 source:c:\users\usuario\desktop\electricista\grader_electricista.cpp
+	<vector>
+	<iostream>
+	"electricista.cpp"
+
+1566527583 c:\users\usuario\desktop\electricista\electricista.cpp
+
+1514140574 source:c:\users\usuario\desktop\electricista\main.cpp
+	<iostream>
+

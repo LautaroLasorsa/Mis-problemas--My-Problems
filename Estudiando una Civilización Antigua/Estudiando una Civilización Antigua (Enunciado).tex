@@ -1,0 +1,213 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional}
+\def\nombre{Estudiando una Civilización Antigua}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{civilización}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Un grupo de arqueólogos locales están estudiando el idioma de una civilización antigua. Para eso, utilizan una serie de palabras presentes en textos que han podido recuperarse.
+
+Además, saben que en esta civilización antigua también existían letras vocales y consonantes, y se sabe que una regla muy importante de su idioma era que en una palabra no podían escribirse dos vocales o dos consonantes de forma consecutiva. Sin embargo, una palabra puede iniciar o terminar tanto con una consonante como con una vocal.
+
+Lo que desean saber actualmente es cuales letras del alfabeto de esta civilización son vocales y cuales son consonantes. Como las palabras de las que disponen son limitadas, es posible que haya más de una forma de reconstruir cuales letras eran vocales y cuales consonantes. Por ahora, cualquier reconstrucción que cumpla las reglas antes explicadas con las palabras que ya conocen les sirve.
+
+Finalmente, por lo dicho anteriormente, están interesados en saber cuántas reconstrucciones validas posibles hay con las palabras descubiertas actualmente. Dado que este número puede ser muy grande desean saber el primer entero mayor o igual a su logaritmo en base 2. 
+
+Los arqueólogos están completamente seguros de que las palabras descubiertas hasta ahora son correctas, por lo cual no debes preocuparte por la posibilidad de que no se cumplan las reglas antes mencionadas.
+ 
+Como el alfabeto utilizado por esta civilización era mucho más grande que el nuestro, los arqueologos han optado por asignarle un número del 1 al $N$ a cada una de las letras.
+
+\section{Detalles de implementación}
+Debes implementar la función \texttt{Civilizacion(N, palabras, vocales, consonantes)}, siendo $N$ un \texttt{ENTERP} que indica la cantidad de letras en el alfabeto (están numeradas de 1 a $N$), $palabras$ un \texttt{VECTOR DE VECTOR DE ENTERO} que contiene las palabras descubiertas por los arqueólogos ($palabras_i$ es la $i$-esima palabra), y $vocales$ y $consonantes$ son dos \texttt{VECTOR DE ENTERO} donde se debe devolver una posible distribución de las letras como vocales y consonantes.
+
+Es decir, en el vector $vocales$ deben aparecer los números correspondientes a las letras vocales, y lo análogo en el vector $consonantes$. En cada uno de estos vectores los enteros pueden estar en cualquier orden. 
+
+Además, la función debe retornar un \texttt{ENTERO} que sea el primer entero mayor o igual al logaritmo en base 2 de la cantidad de reconstrucciones validas posibles.
+
+
+\section{Evaluador local}
+El evaluador local leera primero 2 enteros, $N$ y $M$, la cantidad de letras en el alfabeto y la cantidad de palabras respectivamente.
+
+Luego, leera $M$ líneas, en la i-esima de estas líneas leera primero un entero $K_i$ que índica la cantidad de letras en esa palabra, y luego $K_i$ enteros entre 1 y $N$ correspondientes a cada una de las letras.
+
+Posteriormente llamará a la funcion \texttt{Civilizacion(N, palabras, vocales, consonantes)}, y mostrará 3 líneas.
+La primera con el entero devuelto por la función, la tercera con el contenido del vector $vocales$ y la tercera con el contenido del vector $consonantes$.
+
+\section{Cotas}
+  \begin{itemize}
+     \item $ 1 \leq N,M \leq 250.000$
+     \item $ M \leq \sum_{i=1}^M{K_i} \leq 1.000.000$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+9 1\\
+9 1 2 3 4 5 6 7 8 9
+}
+
+Una  implementación  correcta  podrá devolver:
+
+\caja{5.7cm}{\small
+1\\
+1 3 5 7 9\\
+2 4 6 8
+}
+
+En cambio, si recibe:
+
+\caja{5.7cm}{\small
+10 10\\
+1 1\\
+1 2\\
+1 3\\
+1 4\\
+1 5\\
+1 6\\
+1 7\\
+1 8\\
+1 9\\
+2 1 2
+}
+
+
+Podrá devolver:
+
+\caja{5.7cm}{\small
+9\\
+1 3 4 5 6 7 8 9\\
+2 10
+}
+Notar que puede haber letras que no aparezcan en ninguna de las palabras recuperadas por los arqueólogos.
+\section{Subtareas}
+
+\begin{enumerate}
+  \item $1 \leq N \leq 10$, $1 \leq M\leq \sum_{i=1}^M{K_i} \leq 2.000$ (22 puntos)
+  \item Ninguna letra aparece en 2 o más palabras (14 puntos)
+  \item Hay una palabra que contiene todas las letras al menos una vez (14 puntos)
+  \item Sin restricciones adicionales (50 puntos) 
+  
+\end{enumerate}
+
+\end{multicols*}
+\end{document}

@@ -1,0 +1,225 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional}
+\def\nombre{Eligiendo el horario}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{horario}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Gastón tiene qué ir a la universidad, y quiere saber que tan tarde puede salir de su casa si pretende llegar a tiempo.
+
+Para esto él pretende utilizar los colectivos. Cada colectivo $i$ parte de una parada $A_{i}$, llega a una estación $B_{i}$, tarda un tiempo de $T_{i}$ minutos, sale por primera vez a la hora $I_{i}$ (dada en minutos) y vuelve a salir cada $F_{i}$ minutos. 
+
+Si el colectivo sale en un tiempo $t$, y Gastón llega a esa parada en el mismo tiempo $t$, puede tomarlo. Como la zona donde vive no es muy segura, no quiere hacer ningún recorrido por fuera de los colectivos, aunque quedarse esperando en una parada no es un problema. Para su suerte, tiene una parada en frente de su casa y hay una en frente de la universidad. 
+
+Por ahora lo único que desea saber Gastón es que tan tarde puede salir de su casa si quiere llegar a la universidad en un tiempo $llegada$. Si fuera imposible para él llegar a la universidad a tiempo, devolver -1. Tener en cuenta que Gastón solo puede salir de su casa en el minuto 0 o posterior. 
+
+Siendo $N$ las paradas, la parada frente a la casa de Gastón siempre será la $0$ y la que está frente a la universidad la $N-1$. 
+
+\section{Detalles de implementación}
+
+Debes implementar la función \texttt{Elegir\_Horario(N, A, B, T, I, F, llegada)}, siendo $N$ del tipo \texttt{ENTERO}, $A$ y $B$ del tipo \texttt{VECTOR DE ENTEROS}, $T$, $I$ y $F$ del tipo \texttt{VECTOR DE ENTEROS LARGOS} y $llegada$ un \texttt{ENTERO LARGO}. La función debe devolver un \texttt{ENTERO LARGO} con la respuesta a la pregunta de Gastón.
+
+
+\section{Evaluador local}
+El evaluador local lee en una primera línea los entero $N$ y $M$ y el entero largo $llegada$, siendo $M$ la cantidad de colectivos.
+
+Luego lee $M$ líneas, cada una con los datos de un colectivo. La $(i+1)-esima$ línea contiene $A_{i}$, $B_{i}$, $T_{i}$, $I_{i}$ y $F_{i}$.
+
+Luego llamará a la función \texttt{Elegir\_Horario (N, A, B, T, I, F, llegada)} y mostrara lo que retorna en una línea.
+
+\section{Cotas}
+  \begin{itemize}
+      \item $2\leq N \leq 200.000$
+      \item $2\leq M \leq 300.000$
+      \item $0\leq A_{i}, B_{i} < N$
+      \item $1\leq T_{i}, I_{i}, F_{i}, llegada \leq 10^{13}$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+6 6 14\\
+0 1 3 2 3\\
+0 2 1 2 2\\
+1 3 2 5 4\\
+3 4 3 2 1\\
+4 5 2 2 4\\
+2 5 10 1 10
+}
+
+Una  implementación  correcta  deberá devolver:
+
+\caja{5.7cm}{\small
+2
+}
+
+En cambio, si recibe:
+
+\caja{5.7cm}{\small
+8 9 22\\
+0 1 3 2 3\\
+0 2 1 2 2\\
+1 3 2 5 4\\
+3 4 3 2 1\\
+4 5 2 2 4\\
+2 5 10 1 10\\
+5 6 2 1 1\\
+5 7 10 5 10\\
+6 7 6 12 5
+}
+
+Deberá devolver:
+
+\caja{5.7cm}{\small
+-1
+}
+
+Y si recibe :
+
+\caja{5.7cm}{\small
+5 6 25\\
+0 1 5 2 4\\
+2 1 1 1 1\\
+1 2 3 8 6\\
+2 3 1 1 5\\
+3 4 10 1 1\\
+1 4 1 10 16
+}
+
+Devolverá:
+
+\caja{5.7cm}{\small
+2
+}
+\section{Subtareas}
+
+\begin{enumerate}
+    \item $1\leq llegada, T_{i}, I_{i}, F_{i}\leq500$ y $1\leq N, M\leq1000$ (10 puntos)
+    \item $1\leq llegada, T_{i}, I_{i}, F_{i}\le 500$ (15 puntos)
+    \item $M = N-1$ (15 puntos)
+    \item $F_{i} = 1$ (15 puntos)
+    \item Sin restricciones adicionales (45 puntos).
+\end{enumerate}
+
+\end{multicols*}
+\end{document}

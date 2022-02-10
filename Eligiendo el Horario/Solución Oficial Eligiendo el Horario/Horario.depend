@@ -1,0 +1,26 @@
+# depslib dependency file v1.0
+1514140574 source:c:\users\usuario\desktop\solución oficial eligiendo el horario\main.cpp
+	<iostream>
+
+1583177509 source:c:\users\usuario\desktop\solución oficial eligiendo el horario\grader_horario.cpp
+	<iostream>
+	<vector>
+	"horario_2.cpp"
+
+1583177003 c:\users\usuario\desktop\solución oficial eligiendo el horario\horario.cpp
+	<vector>
+	<queue>
+
+1583178247 c:\users\usuario\desktop\solución oficial eligiendo el horario\horario_2.cpp
+	<vector>
+	<queue>
+
+1599344190 source:c:\users\usuario\desktop\mis problemas\eligiendo el horario\solución oficial eligiendo el horario\grader_horario.cpp
+	<vector>
+	<queue>
+	<iostream>
+
+1583177003 c:\users\usuario\desktop\mis problemas\eligiendo el horario\solución oficial eligiendo el horario\horario.cpp
+	<vector>
+	<queue>
+

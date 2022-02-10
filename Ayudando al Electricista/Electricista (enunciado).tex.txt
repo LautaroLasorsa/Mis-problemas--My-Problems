@@ -1,0 +1,270 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional}
+\def\nombre{Ayudando al Electricista}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{electricista}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Bob él electricista ha recibido varios trabajos para remodelar las redes electricas de diversos edificios. 
+
+Sin embargo, todos son edificios muy antiguos por lo que no hay planos de como son las redes electricas, solo se conocen 2 cosas :
+ \begin{itemize}
+     \item Los tubos por los que pasan los cables y las rosetas (las roseta son cajas donde se conectan diferentes tubos, y además pueden contectarse tomacorrientes o equipos electricos) que conectan dichos tubos.
+     \item La cantidad total de cables en la red.
+ \end{itemize}
+
+Para ser más especificos, la red electrica de un edificio está compuesta de la siguiente manera :
+ \begin{itemize}
+    \item El edificio tiene una conexión con la red electrica de la ciudad. A esta conexión se la conoce como $roseta 0$
+    \item Todos los cables empiezan en la $roseta_{0}$, y luego pasan por una serie de rosetas hasta terminar en una de ellas.
+    \item No hay 2 cables diferentes que pasen por exactamente las mismas rosetas (aunque si puede darse el caso en que un cable \(A\) recorra todas las rosetas que recorre otro cable \(B\) y algunas más)
+    \item Por todas las rosetas pasa al menos un cable.
+    \item Por todos los tubos pasa al menos un cable.
+    \item La cantidad de tubos es igual a la cantidad de rosetas - 1.
+    \item Ningún cable pasa unicamente por la $roseta_{0}$
+ \end{itemize}
+ 
+Como Bob no sabe como es realmente la red (es decir, como estan colocados los cables dentro de los tubos y las rosetas), debe estar preparado para todas las posibilidades, lo cuál es muy costoso. Por eso, desea saber rapidamente cuantas posibles redes hay en cada edificio, para así poder estimar cuanto le costara prepararse.
+
+Este es tu trabajo. Conociendo como luce la red por fuera (es decir, los tubos y rosetas), debes decirle a Bob cuantas posibles redes electricas hay. 
+
+
+\section{Detalles de implementación}
+Si la red consta de $N$ tubos y $M$ rosetas (incluyendo la conexión con la red de la ciudad).
+Debes implementar la función \texttt{electricista(tubos, X, MOD)}.
+\begin{itemize}
+    \item \texttt{tubos} es un vector de largo $N$ de pares de enteros, donde el par \texttt{tubos[i]} describe las 2 rosetas (numeradas de 0 a $M-1$) que dicho tubo une.
+    \item \texttt{X} es la cantidad de cables en la red.
+\end{itemize}
+
+La función debe retornar un entero que contenga la cantidad de posibles redes electricas. Si con los valores dados no es posible formar ninguna red electrica, debe devolver -1.
+
+Como la respuesta debe ser muy grande, debe retornarse modulo MOD, siendo MOD un entero largo que Bob te dirá cada vez que necesite tu ayuda, y puede ser distinto cada vez. 
+
+\columnbreak
+
+\section{Evaluador local}
+
+El evaluador local lee de la entrada estándar: 
+\begin{itemize}
+    \item Una línea con la cantidad de tubos $N$, la cantidad de cables $X$ y el número $MOD$
+    \item $N$ líneas, cada una con 2 enteros (entre 0 y M-1). La línea $i$ contiene los enteros en \texttt{tubos[i]}
+\end{itemize}
+
+Devuelve por la salida estándar una línea con el resultado de llamar a la función \texttt{electricista}.
+
+\section{Cotas}
+  \begin{itemize}
+      \item $1 \leq N \leq 2.000.000$
+      \item $0 \leq X \leq 10.000.000$
+      \item $2 \leq MOD \leq 2^{31} - 1$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+10 3 1000000007\\
+0 1 \\
+1 2 \\
+2 3 \\
+3 4 \\
+4 5 \\ 
+5 6 \\
+6 7 \\
+7 8 \\ 
+8 9 \\
+9 10
+}
+
+Una  implementación  correcta  deberá devolver:
+
+\caja{5.7cm}{\small
+36
+}
+
+Si en cambio recibe:
+
+\caja{5.7cm}{\small
+14 11 1000000\\
+0 1 \\
+0 2 \\
+1 3 \\
+1 4 \\
+2 5 \\
+2 6 \\
+3 7 \\
+3 8 \\
+4 9 \\
+4 10 \\
+5 11 \\
+5 12 \\
+6 13 \\
+6 14
+}
+
+Para una implementación correcta devolverá:
+
+\caja{5.7cm}{\small
+20
+}
+
+Y si en cambio recibe :
+
+\caja{5.7cm}{\small
+14 7 1000000 \\
+0 1 \\
+0 2 \\
+1 3 \\
+1 4 \\
+2 5 \\
+2 6 \\
+3 7 \\
+3 8 \\
+4 9 \\
+4 10 \\
+5 11 \\
+5 12 \\
+6 13 \\
+6 14
+}
+
+Devolverá:
+
+\caja{5.7cm}{\small
+-1
+}
+\columnbreak
+
+\section{Subtareas}
+
+\begin{enumerate}
+    \item $N \leq  20$ (10 puntos)
+    \item Todas las rosetas estan conectadas directamente a la $roseta_{0}$ (10 puntos)
+    \item $N \leq  5.000$ (20 puntos)
+    \item $N \leq  50.000$ (20 puntos)
+    \item $MOD = 2$ (10 puntos) 
+    \item Sin restricciones adicionales (30 puntos)
+\end{enumerate}
+
+\end{multicols*}
+\end{document}

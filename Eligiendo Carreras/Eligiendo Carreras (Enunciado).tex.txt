@@ -1,0 +1,247 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional}
+\def\nombre{Eligiendo Carreras}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{carreras}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Ana y Joe son una pareja y ambos están pensando en escoger su carrera universitaria (saben que irán a la misma universidad). Y necesitan tu ayuda.
+
+Cada uno tiene varias carreras que le interesan, y le es indistinto cursar cualquiera de ellas. Además, tienen la intención de cursar juntos la mayor parte de las carreras que sea posible.
+
+Como aún están estudiando los planes de estudio, las carreras que les interesan pueden cambiar. Por eso quieren, después de cada vez que uno de ellos cambia sus intereses, saber cual es la mayor cantidad de materias que pueden cursar juntos, y las carreras con las que ocurriría esto. Si hay más de una posibilidad, les es indistinto cuál sea.
+
+La universidad a la que piensan asistir es muy particular, ya que en ella los alumnos de cada carrera cursan una sola materia por cuatrimestre. Por lo tanto, cada carrera puede describirse como una lista de enteros, donde el $i-esimo$ entero es la materia cursada en el $i-esimo$ cuatrimestre.
+
+Cada materia se identifica con un número entre 1 y 1.000.000.000 . Además, se sabe que si en un cuatrimestre las dos carreras no tienen la misma materia, no tendrán la misma materia en ningún cuatrimestre posterior.
+
+
+\section{Detalles de implementación}
+Debes implementar las funciones 
+\begin{itemize}
+    \item \texttt{Inicializar(N)}, una función que será llamada una unica vez al inicio del programa, siendo el \texttt{ENTERO} $N$ la cantidad de veces que Ana o Joe actualizarán sus intereses. No debe retornar nada. 
+    \item \texttt{Actualizar(car, num, per, op, maxp, ca, cj)}, recibe $car$, que es un \texttt{VECTOR DE ENTEROS} que contiene describe una carrera. 
+    
+    Además recibe los \texttt{ENTERO} $num$,  $per$ y $op$, el primero es el número que identifica a la carrera, el segundo indica cuál de los 2 realiza la actualización (0 para Ana y 1 para Juan) y el segundo indica que lo que hace es agregarla (1) o quitarla (0) de su lista de intereses. Obviamente solo quitan una carrera que les interesaba y no agregan una carrera que ya estaba entre sus intereses. 
+    
+    Por último, recibe 3 variables que son \texttt{REFERENCIA A ENTERO}, en donde debe guardar la respuesta a la consulta. $maxp$ es la máxima cantidad de cuatrimestres que pueden cursar juntos (puede ser 0), y $ca$ y $cj$ son las carreras que Ana y Joe, respectivamente, deberen elegir para lograr ese objetivo. 
+    Si alguno de los 2 no está interesado en ninguna carrera, los 3 valores deben colocarse en -1.  No debe retornar nada.
+\end{itemize}
+
+Inicialmente ninguno está interesado en ninguna carrera.
+
+\section{Evaluador local}
+El Evaluador Local primero leera una línea con el valor $N$. Luego llamará a \texttt{Inicializar(N)}.
+
+Después leera las N actualizaciones.
+En cada actualización leera primero una línea con 4 enteros : $num$, $per$, $op$ y $M$, siendo $M$ la cantidad de cuatrimestres que dura esa carrera.
+
+La segunda línea contendrá los $M$ enteros que describen el plan de estudios de la carrera.
+
+Luego llamará a \texttt{Actualizar(car, num, per, op, maxp, ca, cj)}  y mostrará en una línea los valores $maxp$, $ca$ y $cj$.
+\section{Cotas}
+  \begin{itemize}
+      \item  Siendo $T$ la suma de los largos de los valores $M$ de todas las actualizaciones. $1\leq T \leq 200.000$
+      \item$1 \leq car_{i} , num \leq 1.000.000.000$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+10\\
+1 0 1 5\\
+1 2 3 4 5\\
+1 1 1 5\\
+1 2 3 4 5\\
+5 1 1 6\\
+1 2 3 4 5 9\\
+1 1 0 5\\
+1 2 3 4 5\\
+1 0 0 5\\
+1 2 3 4 5\\
+1000 0 1 7\\
+1 2 3 6 7 8 10\\
+50 0 1 3\\
+100 101 102\\
+1000 0 0 7\\
+1 2 3 6 7 8 10\\
+10000 1 1 4\\
+100 103 105 1100\\
+10000 1 0 4\\
+100 103 105 1100
+}
+
+Una  implementación  correcta  podrá devolver:
+
+\caja{5.7cm}{\small
+-1 -1 -1\\
+5 1 1\\
+5 1 1\\
+5 1 5\\
+-1 -1 -1\\
+3 1000 5\\
+3 1000 5\\
+0 50 5\\
+1 50 10000\\
+0 50 5
+}
+
+En cambio, si recibe:
+
+\caja{5.7cm}{\small
+6\\
+1 0 1 10\\
+1 2 3 4 5 6 7 8 9 10\\
+2 0 1 5\\
+11 12 13 14 15\\
+3 0 1 7\\
+100 99 98 97 96 95 94 \\
+4 0 1 1\\
+100\\
+5 1 1 1\\
+314\\
+3 1 1 7\\
+100 99 98 97 96 95 94
+}
+
+Podrá devolver:
+
+\caja{5.7cm}{\small
+-1 -1 -1\\
+-1 -1 -1\\
+-1 -1 -1\\
+-1 -1 -1\\
+0 1 5\\
+7 3 3
+}
+\section{Subtareas}
+
+\begin{enumerate}
+  \item $1 \leq T \leq 500$. (10 puntos)
+  \item $1 \leq T \leq 3000$. (20 puntos)
+  \item Nunca ninguno de los 2 elimina una caerra de sus intereses (25 puntos)
+  \item Sin restricciones adicionales. (45 puntos)
+\end{enumerate}
+
+\end{multicols*}
+\end{document}

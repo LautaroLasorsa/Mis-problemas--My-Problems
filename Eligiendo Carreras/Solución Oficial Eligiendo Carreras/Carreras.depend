@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1582514225 source:c:\users\usuario\desktop\carreras\grader_carreras.cpp
+	<vector>
+	<iostream>
+	"carreras.cpp"
+
+1582514778 c:\users\usuario\desktop\carreras\carreras.cpp
+	<vector>
+	<set>
+	<map>
+

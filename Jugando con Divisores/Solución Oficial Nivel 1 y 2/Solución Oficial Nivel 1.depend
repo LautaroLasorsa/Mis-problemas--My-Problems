@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1628832679 source:c:\users\usuario\desktop\solución oficial nivel 1\main.cpp
+	<bits/stdc++.h>
+	"divisores.cpp"
+
+1628833158 c:\users\usuario\desktop\solución oficial nivel 1\divisores.cpp
+	"divisores.h"
+	<bits/stdc++.h>
+
+1628833173 c:\users\usuario\desktop\solución oficial nivel 1\divisores.h
+	<vector>
+
+1628832679 source:c:\users\usuario\desktop\mis problemas\jugando con divisores\solución oficial nivel 1 y 2\main.cpp
+	<bits/stdc++.h>
+	"divisores.cpp"
+
+1628834133 c:\users\usuario\desktop\mis problemas\jugando con divisores\solución oficial nivel 1 y 2\divisores.cpp
+	"divisores.h"
+	<bits/stdc++.h>
+
+1628833173 c:\users\usuario\desktop\mis problemas\jugando con divisores\solución oficial nivel 1 y 2\divisores.h
+	<vector>
+
