@@ -124,29 +124,28 @@
 
 \section{Descripción del problema}
 
-Bob él electricista ha recibido varios trabajos para remodelar las redes electricas de diversos edificios. 
+Bob él electricista ha recibido varios trabajos para remodelar las redes eléctricas de diversos edificios. 
 
-Sin embargo, todos son edificios muy antiguos por lo que no hay planos de como son las redes electricas, solo se conocen 2 cosas :
+Sin embargo, todos son edificios muy antiguos por lo que no hay planos de como son las redes eléctricas, solo se conocen 2 cosas :
  \begin{itemize}
-     \item Los tubos por los que pasan los cables y las rosetas (las roseta son cajas donde se conectan diferentes tubos, y además pueden contectarse tomacorrientes o equipos electricos) que conectan dichos tubos.
+     \item Los tubos por los que pasan los cables y las rosetas (las rosetas son cajas donde se conectan diferentes tubos, y además pueden conectarse tomacorrientes o equipos eléctricos) que conectan dichos tubos. 
      \item La cantidad total de cables en la red.
  \end{itemize}
 
-Para ser más especificos, la red electrica de un edificio está compuesta de la siguiente manera :
+Para ser más específicos, la red eléctrica de un edificio está compuesta de la siguiente manera :
  \begin{itemize}
-    \item El edificio tiene una conexión con la red electrica de la ciudad. A esta conexión se la conoce como $roseta 0$
+    \item El edificio tiene una conexión con la red eléctrica de la ciudad. A esta conexión se la conoce como $roseta 0$
     \item Todos los cables empiezan en la $roseta_{0}$, y luego pasan por una serie de rosetas hasta terminar en una de ellas.
-    \item No hay 2 cables diferentes que pasen por exactamente las mismas rosetas (aunque si puede darse el caso en que un cable \(A\) recorra todas las rosetas que recorre otro cable \(B\) y algunas más)
+    \item No hay 2 cables diferentes que pasen por exactamente las mismas rosetas (aunque sí puede darse el caso en que un cable \(A\) recorra todas las rosetas que recorre otro cable \(B\) y algunas más) 
     \item Por todas las rosetas pasa al menos un cable.
     \item Por todos los tubos pasa al menos un cable.
     \item La cantidad de tubos es igual a la cantidad de rosetas - 1.
-    \item Ningún cable pasa unicamente por la $roseta_{0}$
+    \item Ningún cable pasa únicamente por la $roseta_{0}$
  \end{itemize}
  
-Como Bob no sabe como es realmente la red (es decir, como estan colocados los cables dentro de los tubos y las rosetas), debe estar preparado para todas las posibilidades, lo cuál es muy costoso. Por eso, desea saber rapidamente cuantas posibles redes hay en cada edificio, para así poder estimar cuanto le costara prepararse.
+Como Bob no sabe cómo es realmente la red (es decir, cómo están colocados los cables dentro de los tubos y las rosetas), debe estar preparado para todas las posibilidades, lo cuál es muy costoso. Por eso, desea saber rápidamente cuántas posibles redes hay en cada edificio, para así poder estimar cuánto le costará prepararse.
 
-Este es tu trabajo. Conociendo como luce la red por fuera (es decir, los tubos y rosetas), debes decirle a Bob cuantas posibles redes electricas hay. 
-
+Este es tu trabajo. Conociendo cómo luce la red por fuera (es decir, los tubos y rosetas), debes decirle a Bob cuántas posibles redes eléctricas hay. 
 
 \section{Detalles de implementación}
 Si la red consta de $N$ tubos y $M$ rosetas (incluyendo la conexión con la red de la ciudad).
@@ -156,10 +155,10 @@ Debes implementar la función \texttt{electricista(tubos, X, MOD)}.
     \item \texttt{X} es la cantidad de cables en la red.
 \end{itemize}
 
-La función debe retornar un entero que contenga la cantidad de posibles redes electricas. Si con los valores dados no es posible formar ninguna red electrica, debe devolver -1.
+La función debe retornar un entero que contenga la cantidad de posibles redes eléctricas. Si con los valores dados no es posible formar ninguna red eléctrica, debe devolver -1.
 
-Como la respuesta debe ser muy grande, debe retornarse modulo MOD, siendo MOD un entero largo que Bob te dirá cada vez que necesite tu ayuda, y puede ser distinto cada vez. 
-
+Como la respuesta debe ser muy grande, debe retornar módulo MOD, siendo MOD un entero largo que Bob te dirá cada vez que necesite tu ayuda, y puede ser distinto cada vez.
+ 
 \columnbreak
 
 \section{Evaluador local}
