@@ -1,0 +1,263 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{OIA Certamen Nacional}
+\def\nombre{Construyendo Pueblos}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{}
+\def\numero{}
+\def\archivo{pueblos}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+El reino de Arbolonia está colonizando una nueva isla, y para eso busca construir nuevos pueblos en ella. 
+El procedimiento para construir un pueblo es el siguiente :
+ \begin{itemize}
+     \item Primero, se llega al único puerto que hay en la isla y se desembarca. En este momento se elige un número del 0 al 9, que indica en qué dirección se seguirá. El 0 es la dirección más a la izquierda y el 9 la dirección más a la derecha.
+     \item Después de recorrer una cierta distancia por el camino elegido, se vuelve a repetir la elección, nuevamente eligiendo una dirección entre 0 y 9 para seguir.
+     \item Después de $M$ elecciones, se llega al punto en el que se construirá el nuevo pueblo.
+ \end{itemize}
+
+Se garantiza que, si para dos pueblos las primera $i$ elecciones fueron iguales y en la elección $i+1$ el primero toma una ruta más a la derecha de la que toma el segundo, quedará más a la derecha sin importar las siguientes decisiones. 
+
+Es decir, sea $A$ el vector que representa las decisiones tomadas en la construcción del primer pueblo (es decir, $A_{0}$ contiene el entero de la primer decisión, $A_{1}$ el de la segunda, etc.), y $B$ el vector que representa las decisiones tomadas para construir el segundo, el pueblo más a la derecha será el que corresponda al vector lexicograficamente mayor. 
+
+El rey de Arbolonia quiere seguir la colonización en tiempo real, y para eso necesita las siguientes operaciones :
+ \begin{itemize}
+    \item Se crean 2 pueblos, $A$ y $B$, con $A$ a la derecha de $B$, con una población $P_{A}$ y $P_{B}$ respectivamente. Después de hacer esto, quiere saber cuál es la población total de los pueblos que ya existían y quedaron comprendidos entre $A$ y $B$. Es decir, están a la derecha de $A$ y a la izquierda de $B$. Se garantiza que ningún pueblo es creado 2  o más veces. 
+    \item Indicar que un pueblo $C$, ya existente, sufrirá un cambio en su población de $x$, es decir, la población aumenta en $x$. Si es negativo indica que la población se redujo.  Desea saber después de esto cuál es la población de dicho pueblo.
+ \end{itemize}
+ 
+Tu trabajo es implementar el sistema informático necesario para responder las preguntas de su majestad.
+
+\section{Detalles de implementación}
+Debes implementar las funciones 
+\begin{itemize}
+    \item \texttt{Inicializar(N, M)}, una función que será llamada una única vez al inicio del programa. Recibirá los parámetros $N$ y $M$ del tipo \texttt{ENTERO}, que son la cantidad de llamadas que se realizarán en total a las funciones \texttt{Crear(A,B,PA,PB)} y \texttt{Cambiar(C,x)}, y el largo de los vectores respectivamente. No debe retornar nada. 
+    \item \texttt{Crear(A, B, PA, PB)}. Siendo $A$ y $B$ del tipo \texttt{VECTOR DE ENTEROS} y de largo $M$ y $PA$ y $PB$ del tipo \texttt{ENTERO LARGO}. Debe retornar un \texttt{ENTERO LARGO}, correspondiente a la respuesta.
+    \item \texttt{Cambiar(C,x)}.Siendo $C$ del tipo  \texttt{VECTOR DE ENTEROS} y de largo $M$, y $x$ del tipo \texttt{ENTERO LARGO}. Esta función debe retornar un \texttt{ENTERO LARGO}, correspondiente a la respuesta.
+\end{itemize}
+El largo $M$ es el mismo para todos los vectores de un mismo caso de prueba.
+\columnbreak
+
+\section{Evaluador local}
+El evaluador local primero leerá una línea con la cantidad de llamados a las funciones \texttt{Crear(A,B,PA,PB)} y \texttt{Cambiar(C,x)}, $N$, y el largo de los vectores $M$ y va a llamar a la función \texttt{Incializar(N,M)}.
+
+Luego, el evaluador local lee de la entrada estándar: 
+\begin{itemize}
+    \item Las $N$ consultas. En cada una lee una primera línea un entero $t$, que indica el tipo de consulta.
+    \item Si $t = 1$, lee en las 2 siguientes líneas los vectores $A$ y $B$. Cada línea debe contener $M$ enteros. Finalmente lee una última línea con los enteros largos $PA$ y $PB$. Luego llama a \texttt{Crear(A,B,PA,PB)} y muestra el resultado por salida estándar.
+    \item Si $t = 2$, lee en la siguiente línea el vector $C$, que deberá contener $M$ enteros, y luego el entero largo $x$. Luego llama a \texttt{Cambiar(C,x)} y muestra el resultado por salida estándar.
+\end{itemize}
+Se garantiza que la primer consulta es de tipo 1.
+\section{Cotas}
+  \begin{itemize}
+      \item $4 \leq N*M \leq 500.000$
+      \item $0 \leq A_{i}, B_{i}, C_{i} \leq 9$
+      \item En todo momento la población de cada pueblo es un entero entre 0 y $10^{12}$
+  \end{itemize}
+
+\section{Ejemplos}
+Si el evaluador local recibe la siguiente entrada:
+
+\caja{5.7cm}{\small
+8 5\\
+1\\
+0 1 2 3 4\\
+0 1 2 3 5\\
+1000 1000\\
+1\\
+0 1 2 3 3\\
+0 1 2 3 6\\
+500 1000\\
+1\\
+0 1 2 3 2\\
+0 1 2 3 7\\
+2000 1000\\
+2\\
+0 1 2 3 3\\
+9500\\
+2\\
+0 1 2 3 6\\
+9000\\
+1\\
+0 0 0 0 1\\
+9 9 9 9 8\\
+1000000 1000000\\
+1\\
+0 0 0 0 0\\
+9 9 9 9 9\\
+1 1\\
+2\\
+0 0 0 0 0\\
+-1
+}
+
+Una  implementación  correcta  deberá devolver:
+
+\caja{5.7cm}{\small
+0\\
+2000\\
+3500\\
+10000\\
+10000\\
+25000\\
+2025000\\
+0
+}
+
+En cambio, si recibe:
+
+\caja{5.7cm}{\small
+4 6\\
+1\\
+0 1 2 3 4 5\\
+1 0 0 0 0 0\\
+10 10\\
+1\\
+0 1 2 3 5 6\\
+2 0 0 0 0 0\\
+100 100\\
+2\\
+2 0 0 0 0 0\\
+-99\\
+1\\
+0 0 9 9 9 9\\
+3 0 0 0 0 0\\
+100 100
+}
+
+Deberá devolver:
+
+\caja{5.7cm}{\small
+0\\
+10\\
+1\\
+121
+}
+\section{Subtareas}
+
+\begin{enumerate}
+  \item $4 \leq N*M \leq 5.000$. (10 puntos)
+  \item La respuesta a todas las llamadas a la función \texttt{Crear(A,B,PA,PB)} es 0. (10 puntos)
+  \item En los llamados la función \texttt{Crear(A,B,PA,PB)} los vectores $A$ y $B$ solo difieren en la última posición. (20 puntos)
+  \item Los vectores $A$, $B$ y $C$ solo contienen los valores 0 y 1. (20 puntos)
+  \item Sin restricciones adicionales. (40 puntos)
+\end{enumerate}
+
+\end{multicols*}
+\end{document}
