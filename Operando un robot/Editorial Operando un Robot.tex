@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+ 
+\title{Editorial Operando un Robot}
+\author{por Lautaro Lasorsa}
+\date{}
+\begin{document}
+ 
+\maketitle
+ 
+\section{Solución general}
+ 
+La solución esperada tiene una complejidad de $O(N+Q*log(N))$ y es utilizando un Segment Tree.
+\\ \\Para esto la clave es observar que es posible componer instrucciones y que esta composición es una operación asociativa.\\\\
+Para hacer esto hay que modelar cada instrucción de la siguiente forma:
+ 
+\begin{itemize}
+    \item Un par (punto) $(x,y)$ que representa la posición a la que se mueve el robot si ejecuta esa instrucción.
+    \item Un entero $d$ que representa la orientación en la que queda al final el robot.
+\end{itemize}
+Notar que estos son los mismos datos exactos que se deben devolver.
+\\\\La forma de hacer la composición asociativa es:
+\\\\Sean mis instrucciones $I_1 = (p_1,d_1)$ e $I_2=(p_2,d_2)$, $I = I_1 o I_2 = (p,d)$ es :
+\begin{itemize}
+    \item $p = p_1+p_2*d_1$, donde el producto entre un punto y una rotación da el resultado de rotar ese punto con esa rotación (al ser rotaciones múltiplo de 90 grados y los puntos de coordenadas enteras el resultado siempre tiene sus coordenadas enteras)
+    
+    \item $d = d_1 * d_2$, donde el producto de rotaciones es la composición. (Podemos incluso pensarlo como la suma en $Z_4$, forma en la que lo encara mi implementación)
+\end{itemize}
+\\Modeladas así, las instrucciones de tipo 1 son $((M,0),0)$ y las tipo 2 son $((0,0),M)$
+\\\\Esto es posible pensarlo de forma adhoc pero también de una forma muy elegante utilizando números complejos o algebra lineal en $R^2$.
+\\\\Como la composición es $O(1)$, entonces podemos utilizar un Segment Tree para realizar queries y updates (operaciones tipo 1 y 2) en $O(log(N))$ con inicialización $O(N)$
+
+\section{Subtarea 1}
+$1 \leq N,Q \leq 1.000$ (10 puntos)
+\\ La solución en este caso es que simplemente simulen las instrucciones. Lo unico importante es que sepan modelar la dirección y cómo esta influye en las instrucciones de tipo 1.
+\\ La complejidad resultante es $O(N*Q)$
+\section{Subtarea 2}
+Solo hay instrucciones de tipo 1 y no hay operaciones de tipo 2 (5 puntos)
+\\Como en este caso el robot no rota, se puede ver que solo tenemos la posibilidad de avanzar. Por tanto, el resultado es $((X,0),0)$ donde $X$ es la suma de los avances de cada instrucción. Esto es una consulta de suma en rango sin updates, que se puede resolver por ejemplo con una tabla aditiva en $O(N+Q)$
+\section{Subtarea 3}
+Solo hay instrucciones de tipo 1. (10 puntos)
+\\Esta es similar a la anterior pero al agregar updates es necesario utilizar un Segment Tree para calcular la suma en rango. Esto lleva la complejidad a $O(N+Q*log(N))$. Es posible que soluciones con SQRT descomposition entren en $O(N+Q*N^{1/2})$
+\section{Subtarea 4}
+Solo hay instrucciones de tipo 2 y no hay operaciones de tipo 2 (5 puntos)
+\\ Si observamos como en la solución general que podemos modelar las rotaciones como la suma en $Z_4$, al solo poder rotar volvemos a tener una consulta de suma en rango sin updates que sale en $O(N)$ con una tabla aditiva.
+\section{Subtarea 5}
+Solo hay instrucciones de tipo 2. (10 puntos)
+\\ Ocurre lo mismo que con la subtarea 3 respecto de la 2, es la misma solución que la subtarea 4 pero agregando un Segment Tree o una SQRT descomposition para resolverlo en $O(N+Q*log(N))$ o en $O(N+Q*N^{1/2})$ respectivamente.
+\section{Subtarea 6}
+No hay operaciones de tipo 2 (25 puntos)
+\\En este caso lo interesante es observar que si se la solución a un rango de instrucciones $[L,R]$ podemos obtener el resultado para $[L+1,R]$.
+\\\\ La forma de hacer esto es observar que para cada instrucción existe una instrucción que es su inversa, es decir que al componerlas dan como resultado la instrucción neutra $((0,0),0)$.
+\begin{itemize}
+    \item En el caso de las instrucciones tipo 1 $((M,0),0)$ su inverso es $((-M,0),0)$
+    \item Para las instrucciones tipo 2 $((0,0),M)$ su inverso es $((0,0),(4-M)\%4)$
+\end{itemize}
+\\ Así, si tengo $I_{[L,R]} = [L,R]$, y sea $inv(I_L)$ la inversa de la instrucción en posición L, $inv(I_L) o I_{[L,R]} = (inv(I_L) o I_L) o I_{[L+1,R]} = (neutra) o I_{[L+1,R]} = I_{[L+1,R]}$, donde $I_{[L+1,R]}$ es la respuesta para [L+1,R]
+\\\\ Con esta observación clave y al no haber updates es posible aplicar una Sparse Table para resolver el problema en $O((N+Q)*log(N))$ o el algoritmo de Mo para resolverlo en $O((N+Q)*N^{1/2})$
+\end{document}
+ 
+ 
+ 

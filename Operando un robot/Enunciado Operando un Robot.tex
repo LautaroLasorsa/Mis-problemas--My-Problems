@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+ 
+\title{Operando un Robot}
+\author{por Lautaro Lasorsa}
+\date{Tiempo límite: 2 seg. Memoria Límite: 512 MB.}
+\begin{document}
+ 
+\maketitle
+ 
+\section{Enunciado}
+Maria tiene un robot que se mueve en el plano XY, e inicialmente está ubicado en el punto (0,0) mirando en dirección al eje X en sentido positivo.
+ 
+Este robot acepta dos tipos de instrucciones:
+ 
+\begin{enumerate}
+    \item Avanzar $M$ metros la dirección hacia la cuál está mirando.
+    
+    \item Girar 90/180/270 grados en sentido contrario a las agujas del reloj. Estos giros se identifican con los números 1,2 y 3 respectivamente.
+\end{enumerate}
+ 
+El robot tiene cargado un vector de instrucciones de largo $N$ y soporta operaciones de 2 tipos:
+ 
+\begin{enumerate}
+    \item Calcular en qué posición quedaría y con qué orientación si se ejecutan todas las instrucciones en las posiciones en su vector entre un $L$ y $R$ dados.
+    \item Cambiar la instrucción en la posición $i$ por una nueva que se le es dada. 
+\end{enumerate}
+ 
+El problema es que Maria cree que el sistema de simulación de su robot está funcionando demasiado lentamente, así que te ha pedido ayuda para que lo hagas de una forma más eficiente.
+ 
+\section{Input}
+ 
+La primera línea es un entero $N$ ($1 \leq N \leq 200.000$) y luego siguen $N$ líneas, describiendo la i-ésima línea la i-ésima instrucción cargada en el vector del robot. El vector de instrucciones está indexado en base 0.
+ 
+Cada una de estas líneas tiene 2 enteros:
+\begin{enumerate}
+    \item Un entero $t$ que indica el tipo de instrucción ($1\leq t \leq2$)
+    \item Un entero M (si $t = 1, 1\leq M \leq 10^9$, si $t = 2, 1 \leq M \leq 3$)
+\end{enumerate}
+ 
+Luego habrá una línea con un entero $Q$ ($1 \leq Q \leq 200.000$)y luego $Q$ líneas que describen cada una operación.
+ 
+Cada línea tiene primero un entero $tq$ que indica el tipo de operación ($1 \leq tq \leq 2$)
+ 
+\begin{enumerate}
+    \item Si $tq = 1$, luego siguen dos enteros $L$ y $R$. ($0 \leq L \leq R \leq N-1$).
+    \item Si $tq = 2$, luego sigue un entero $i$ y los 2 enteros que describen una instrucción. Indica que se debe reemplazar la instrucción $i$ por la instrucción dada.
+\end{enumerate}
+ 
+\section{Output}
+ 
+Para cada operación de tipo 1 se debe imprimir una línea con la respuesta que contenga 3 enteros:
+\begin{enumerate}
+    \item Dos enteros $x,y$ que describan las coordenadas en las que termine el robot.
+    \item Un entero $d$ que indique la dirección en la que finalmente mira el robot. De la siguiente forma
+    \begin{itemize}
+        \item $d = 0$ si el robot mira en dirección al eje X en sentido positivo.
+        \item $d = 1$ si el robot mira en dirección al eje Y en sentido positivo.
+        \item $d = 2$ si el robot mira en dirección al eje X en sentido negativo.
+        \item $d = 3$ si el robot mira en dirección al eje Y en sentido negativo.
+    \end{itemize}
+\end{enumerate}
+\section{Ejemplo}
+
+\subsection{Input}
+5\\
+1 10\\
+2 1\\
+1 10\\
+2 2\\
+1 5\\
+6\\
+1 0 0\\
+1 0 4\\
+1 0 2\\
+2 1 2 2\\
+1 0 2\\
+1 1 3
+\subsection{Output}
+10 0 0\\
+10 5 3\\
+10 10 1\\
+0 0 2\\
+-10 0 0
+\section{Subtareas}
+\begin{enumerate}
+    \item $1 \leq N,Q \leq 1.000$ (10 puntos)
+    \item Solo hay instrucciones de tipo 1 y no hay operaciones de tipo 2 (5 puntos)
+    \item Solo hay instrucciones de tipo 1. (10 puntos)
+    \item Solo hay instrucciones de tipo 2 y no hay operaciones de tipo 2 (5 puntos)
+    \item Solo hay instrucciones de tipo 2. (10 puntos)
+    \item No hay operaciones de tipo 2 (25 puntos)
+    \item Sin restricciones adicionales (35 puntos)
+\end{enumerate}
+\end{document}
