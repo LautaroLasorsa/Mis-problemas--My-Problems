@@ -1,7 +1,7 @@
 
 [![My Skills](https://skillicons.dev/icons?i=cpp&theme=light)](https://skillicons.dev)
 
-Espanish:
+**Espanish:**
 
 Como ex participante de la OIA yo he escrito varios problemas y los he propuesto para que se tomen en futuras ediciones de la competencia. En este repositorio se encuentran los que ya fueron utilizados en pasadas ediciones de la competencia.
 
@@ -11,7 +11,7 @@ Tener presente que, por ser una competencia local de Argentina, tanto los nombre
 
 Además hay 2 problemas que presenté a la OIA y fueron tomados en la CIIC, para los cuales no dispongo de un enlace.
 
-English:
+**English:**
 
 As a former OIA participant I have written several problems and have proposed them to be taken up in future editions of the competition. In this repository are those that were already used in past editions of the competition.
 
@@ -21,7 +21,7 @@ Keep in mind that, as it is a local competition in Argentina, both the names and
 
 In addition there are 2 problems that I presented to the OIA and were taken up in the CIIC, for which I do not have a link.
 
-Links:
+**Links:**
 
 Laboratorio Atestado de Perros: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/01/c3a19n3p2.pdf
 
