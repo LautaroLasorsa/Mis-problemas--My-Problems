@@ -24,14 +24,23 @@ In addition there are 2 problems that I presented to the OIA and were taken up i
 Links:
 
 Laboratorio Atestado de Perros: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/01/c3a19n3p2.pdf
-Ayudando al Electricista: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/01/c3a19n3p3.pdf
-Eligiendo el Horario: CIIC (no link)
-Construyendo Pueblos: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/06/pueblos.pdf
-Estudiando Prefijos: http://www.oia.unsam.edu.ar/wp-content/uploads/2021/12/prefijos.pdf 
-Operando Circuitos: CIIC (no link)
-Jugando con Divisores (Level 1): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores1.pdf 
-Jugando con Divisores (Level 2): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores2.pdf 
-Jugando con Divisores (Level 3): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores3.pdf
-Estudiando una Civilización Antigua ; Eligiendo Carreras: (this link is to all the problems of that year): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/11/enunciadoscertamennacionaloia2021.zip 
-Formando equipos impares: https://www.oia.unsam.edu.ar/wp-content/uploads/2023/04/impares.pdf 
 
+Ayudando al Electricista: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/01/c3a19n3p3.pdf
+
+Eligiendo el Horario: CIIC (no link)
+
+Construyendo Pueblos: http://www.oia.unsam.edu.ar/wp-content/uploads/2020/06/pueblos.pdf
+
+Estudiando Prefijos: http://www.oia.unsam.edu.ar/wp-content/uploads/2021/12/prefijos.pdf 
+
+Operando Circuitos: CIIC (no link)
+
+Jugando con Divisores (Level 1): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores1.pdf 
+
+Jugando con Divisores (Level 2): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores2.pdf 
+
+Jugando con Divisores (Level 3): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/09/divisores3.pdf
+
+Estudiando una Civilización Antigua ; Eligiendo Carreras: (this link is to all the problems of that year): http://www.oia.unsam.edu.ar/wp-content/uploads/2021/11/enunciadoscertamennacionaloia2021.zip 
+
+Formando equipos impares: https://www.oia.unsam.edu.ar/wp-content/uploads/2023/04/impares.pdf 
