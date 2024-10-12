@@ -1,0 +1,254 @@
+% Plantilla para problemas de OIA
+% por Carolina González y Martín Villagra
+% (hecho a ojo)
+
+\documentclass[fontsize=13pt, paper=a4, DIV=calc]{scrartcl}
+\usepackage{silence}
+\WarningFilter{scrartcl}{Usage of package `fancyhdr'}
+\WarningFilter{scrartcl}{Usage of package `titlesec'}
+\WarningFilter{scrartcl}{Activating an ugly workaround for a missing}
+\WarningFilter{titlesec}{Non standard sectioning command detected}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath,amssymb,amsfonts,latexsym,cancel}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{makeidx}
+\usepackage{eso-pic}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{helvet}
+\usepackage[T1]{fontenc}
+\usepackage[helvet]{sfmath}
+\everymath={\mathsf\mathbf}
+\decimalpoint
+\textheight = 26cm
+\textwidth = 18cm
+\topmargin = -1.5cm
+\oddsidemargin = -1.5cm
+\hoffset = 0.55cm
+\fancyheadoffset{-1pt}
+\pagestyle{fancy}
+\lfoot{\scriptsize\version}
+\cfoot{}
+\rfoot{\scriptsize hoja {\thepage} de \pageref{LastPage}}
+\renewcommand{\headrule}{\vspace*{-9pt}\rule{\textwidth}{0.2pt}\\[\dimexpr-\baselineskip+0.5pt]\rule{\textwidth}{0.2pt}}
+\renewcommand{\footrulewidth}{0.2pt}
+\setlength{\footskip}{20pt}
+\AddToShipoutPicture{
+	\begin{tikzpicture}
+		\draw[white] (0,0) rectangle (0,0);
+		\draw[very thick] (0.3,0.8) rectangle (19.45,28.9);
+	\end{tikzpicture}
+}
+\renewcommand{\familydefault}{\sfdefault}
+\setlength{\parindent}{0.5cm}
+\setlength{\columnsep}{30pt}
+\setlength{\columnseprule}{0.2pt}
+\setlength{\headsep}{0.1in}
+\titleformat{\section} {\normalfont}{}{0pt}{\textbf}
+\titlespacing*{\section}{0pt}{10pt}{0pt}
+\newcommand{\caja}[2]{
+	{\fontfamily{pcr}\selectfont\large
+	\hspace*{16pt}{\setlength{\fboxrule}{0pt}\fboxsep4pt\fbox{\pbox{\textwidth}{
+		\hspace*{16pt}{\setlength{\fboxrule}{0.5pt}\fboxsep8pt\framebox[#1][l]{\pbox{\textwidth}{#2}}}
+	}}}
+	}\\\par
+}
+\renewcommand*{\maketitle}{
+	\begin{center}
+		\textbf{\nombre}\\
+		\textit{\footnotesize Contribución de \author}
+	\end{center}
+}
+\newlist{lista}{itemize}{2}
+\setlist[lista]{label=$\bullet\,\,$,itemindent=12pt, leftmargin=*, itemsep=-7pt, topsep=-7pt}
+\newlist{lista2}{itemize}{2}
+\setlist[lista2]{label=$\circ$,itemindent=-8pt, leftmargin=30pt, itemsep=-7pt, topsep=-7pt}
+\newlist{itemletras}{enumerate}{2}
+\setlist[itemletras]{label=\alph*.$\;$, leftmargin=20pt, itemsep=-1pt, topsep=-7pt}
+\setlength{\parskip}{5pt}
+\hyphenpenalty=2000 \emergencystretch=20pt
+\lhead{\textbf{ \niveldia{ } Problema \numero}}
+\chead{\normalfont \ttfamily \archivo}
+\rhead{\textbf {\contest}}
+\newcommand*{\breakcolumn}{\null\vspace*{\fill}\columnbreak}
+
+% Colores
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{pink}{rgb}{1, 0.25, 0.75}
+\definecolor{dark green}{rgb}{0, 0.5, 0}
+\definecolor{orange}{rgb}{1, 0.75, 0}
+\definecolor{dark red}{rgb}{0.75, 0, 0}
+\definecolor{purple}{rgb}{0.65, 0, 1}
+\definecolor{dark blue}{rgb}{0, 0, 0.5}
+
+% Espacios truchos
+\def\ne{\vspace{-12pt}} % negative enter
+\def\se{$ $\\}		    % simple enter
+\def\de{\se\newline}	    % doble enter
+\def\te{\de\newline}	    % triple enter
+\def\tab{\hspace*{16pt}} % tab
+
+% Separar en sílabas
+\hyphenation{oia-no-va}
+
+% Subrayado en color
+% {\color{pink}\underline{\color{black}TEXTO}}\\
+
+\begin{document}
+%=============================MODIFICABLE=============================
+%*********************************************************************
+\def\contest{Certamen Jurisdiccional OIA 2022}
+\def\nombre{Formando equipos impares}
+\def\author{Lautaro Lasorsa}
+\def\niveldia{Nivel 3}
+\def\numero{4}
+\def\archivo{impares}% Nombre del archivo
+\def\version{}
+%*********************************************************************
+%*********************************************************************
+
+
+\maketitle
+\begin{multicols*}{2}
+
+\section{Descripción del problema}
+
+Una cierta empresa, que se organiza de forma jerárquica, desea armar equipos para llevar a cabo diferentes proyectos.
+
+La empresa tiene $N$ empleados, numerados desde $0$ hasta $N-1$ inclusive. Está dirigida por un gerente general, que es supervisor directo de algunos empleados, que son a su vez supervisores directos de otros empleados de menor jerarquía, y así siguiendo hasta llegar a aquellos empleados sin subordinados.
+
+En esta empresa cada empleado (excepto el gerente general) tiene \textbf{exactamente un supervisor directo}, y puede supervisar a 0 o más empleados. Todos los empleados son directa o indirectamente supervisados por el gerente general.
+
+Un equipo deberá estar formado por:
+\begin{itemize}
+    \item Un empleado designado como \textit{director} del equipo.
+    \item Opcionalmente, puede haber más empleados además del director, que sean directa o indirectamente supervisados por él.
+    \item Es un requisito que por cada miembro del equipo que no sea el director del equipo, \textbf{su supervisor directo también forme parte del equipo}.
+    \item Para evitar empates en las votaciones y así facilitar la toma de decisiones, los equipos deben estar conformados por \textbf{una cantidad impar} de empleados.
+\end{itemize}
+
+Siguiendo estas reglas, se debe calcular cuántas maneras diferentes existen de formar un equipo eligiendo algunos empleados de la empresa.
+
+Como este número puede ser muy grande, se debe indicar el resto al dividirlo por $10^9+7$
+
+\columnbreak
+
+\section{Detalles de implementación}
+
+Debes implementar la función \texttt{impares(subordinados)}, que recibe un único parámetro \texttt{subordinados}: un arreglo de $N$ arreglos de enteros. El arreglo \texttt{subordinados[i]} con $0 \leq i < N$ indica los \textit{subordinados} del empleado $i$, es decir, aquellos empleados que tienen al $i$ como supervisor directo.
+La función debe retornar un entero con el valor solicitado.
+
+El gerente general es el empleado 0. 
+
+
+\section{Evaluador local}
+
+El evaluador lee de la entrada estándar: 
+\begin{itemize}
+    \item Una línea con el entero $N$
+    \item $N$ líneas, que representan los arreglos \texttt{subordinados[i]} en orden, para $i$ entre $0$ y $N-1$ inclusive. Cada línea comienza con un número $k$ que indica el tamaño del correspondiente arreglo \texttt{subordinados[i]}, seguido de los $k$ elementos del arreglo.
+\end{itemize}
+
+Escribe en la salida estándar una línea con el resultado retornado por la llamada \texttt{impares(subordinados)}.
+
+\section{Restricciones}
+  \begin{itemize}
+      \item $1 \leq N \leq 200.000$
+  \end{itemize}
+
+\columnbreak
+
+\section{Ejemplos}
+{\footnotesize
+Para la siguiente entrada:
+
+\caja{3.3cm}{\small
+6\\
+5 1 2 3 4 5\\
+0\\
+0\\
+0\\
+0\\
+0
+}
+
+La respuesta correcta es:
+
+\caja{1.2cm}{\small
+21
+}
+
+En cambio para:
+
+\caja{1.3cm}{\small
+5\\
+1 1\\
+1 2\\
+1 3\\
+1 4\\
+0
+}
+
+La respuesta es:
+
+\caja{1.2cm}{\small
+9
+}
+
+Y para:
+
+\caja{2.2cm}{\small
+15\\
+2 1 2\\
+2 3 4\\
+2 5 6\\
+2 7 8\\
+2 9 10\\
+2 11 12\\
+2 13 14\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0\\
+0
+}
+
+La respuesta es:
+
+\vspace{-0.1cm}\caja{1.3cm}{\small
+380
+}
+}
+
+\section{Subtareas}
+
+\small
+
+\begin{enumerate}
+    \item $N \leq 10$ (12 puntos)
+    \item $\texttt{subordinados[i]}$ tiene como máximo un elemento para $0 \leq i < N$ (12 puntos)
+    
+    \item $\texttt{subordinados[0]}$ tiene tamaño 2, y $\texttt{subordinados[i]}$ tiene como máximo un elemento para $1 \leq i < N$ (6 puntos)
+    
+    \item $\texttt{subordinados[0]}$ tiene hasta $20$ elementos, $\texttt{subordinados[i]}$ tiene a lo más un elemento si $1 \leq i < N$ (15 puntos)
+    
+    \item $\texttt{subordinados[i]}$ tiene hasta dos elementos para $0 \leq i < N$ (15 puntos)
+    \item Sin más restricción (40 puntos)
+\end{enumerate}
+
+\end{multicols*}
+\end{document}
